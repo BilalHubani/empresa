@@ -8,88 +8,18 @@ import java.io.InputStreamReader;
  * Created by dam on 18/10/16.
  */
 public class methods {
+
     public static void mostrarMenu(){
-        System.out.println("1. Alta empresa.cliente");
-        System.out.println("2. Nuevo empresa.presupuesto");
+        System.out.println("1. Alta cliente");
+        System.out.println("2. Nuevo presupuesto");
         System.out.println("3. Presupuestos pendientes (de aceptar o rechazar)");
-        System.out.println("4. Listado de presupuestos de un empresa.cliente determinado");
+        System.out.println("4. Listado de presupuestos de un cliente determinado");
         System.out.println("5. Listado de presupuestos rechazados");
         System.out.println("6. Listado de clientes");
-        System.out.println("7. Cambiar estado de un empresa.presupuesto");
+        System.out.println("7. Cambiar estado de un presupuesto");
         System.out.println("8. Salir");
     }
-    public static void elegirOpcion(){
-        mostrarMenu();
-        int opcion = pedirEntero("Elige una opción: ");
-        do {
-            switch (opcion) {
-                case 1:
-                    altaCliente();
-                    break;
-                case 2:
 
-                    break;
-                case 3:
-
-                    break;
-                case 4:
-
-                    break;
-                case 5:
-
-                    break;
-                case 6:
-
-                    break;
-                case 7:
-
-                    break;
-                case 8:
-                    System.out.println("Chao :)");
-                    break;
-                default:
-                    System.out.println("Opción incorrecta!");
-                    break;
-            }
-        }while (opcion != 8);
-    }
-    public static void altaCliente(){
-        String nombre;
-        String apellido;
-        int telf;
-        boolean vip;
-
-        nombre=pedirCadena("Escribe el nombre: ");
-        apellido=pedirCadena("Escribe el apellido: ");
-        vip=pedirBoolean("Es un cliente vip? (si/no): ");
-    }
-    public static int comprobarTelf (String mensaje){
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int respuesta = 0;
-        int aux;
-        int cifras;
-        boolean error;
-        do {
-            cifras = 0;
-            aux = respuesta;
-            try {
-                System.out.println(mensaje);
-                respuesta = Integer.parseInt(br.readLine());
-                while (aux != 0){
-                    aux = aux/10;
-                    cifras++;
-                }
-                error = false;
-            } catch (IOException ex) {
-                System.out.println("Error de entrada / salida");
-                error = true;
-            } catch (NumberFormatException ex) {
-                System.out.println("No has introducido un nº entero.");
-                error = true;
-            }
-        } while (cifras != 9 || error);
-        return respuesta;
-    }
     public static String pedirCadena(String mensaje) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String respuesta = "";

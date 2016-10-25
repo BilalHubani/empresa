@@ -13,7 +13,7 @@ import java.io.FileOutputStream;
  */
 public class fichero {
 
-    // Atributo para guardar el nombre del empresa.fichero
+    // Atributo para guardar el nombre del fichero
     private String nombre;
 
     // Constructor
@@ -38,7 +38,7 @@ public class fichero {
             Object o = decodificador.readObject();
             return o;
         } catch (FileNotFoundException ex) {
-            System.out.println("Error al leer " + ex.getMessage());
+ //           System.out.println("Error al leer " + ex.getMessage());
             return null;
         }
 
