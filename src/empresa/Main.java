@@ -17,8 +17,6 @@ public class Main {
             listac = new listaCliente();
         }
         elegirOpcion();
-
-
     }
     public static void altaCliente(){
         String nombre;
@@ -38,19 +36,15 @@ public class Main {
     public static int pedirTelf (String mensaje){
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int respuesta = 0;
-        int aux;
         int cifras;
         boolean error;
         boolean comprobar= false;
         do {
             cifras = 0;
-            aux = respuesta;
             try {
-                System.out.println(mensaje);
-                respuesta = Integer.parseInt(br.readLine());
-                while (aux != 0){
-                    aux = aux/10;
-                    cifras++;
+                while (Integer.toString(respuesta).length() != 9) {
+                    System.out.println(mensaje);
+                    respuesta = Integer.parseInt(br.readLine());
                 }
                 error = false;
             } catch (IOException ex) {
