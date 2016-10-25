@@ -1,5 +1,8 @@
 package empresa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by dam on 11/10/16.
  */
@@ -8,6 +11,7 @@ public class cliente {
     private String apellido;
     private int telf;
     private boolean vip;
+    private List<presupuesto> presupuestosCliente = new ArrayList<>();
 
     public String getNombre() {
         return nombre;
@@ -41,10 +45,35 @@ public class cliente {
         this.vip = vip;
     }
 
+    public List<presupuesto> getpresupuestosCliente() {
+        return presupuestosCliente;
+    }
+
+    public void setpresupuestosCliente(List<presupuesto> presupuestosCliente) {
+        this.presupuestosCliente = presupuestosCliente;
+    }
+
+    public void addPresupuesto(presupuesto presupuesto){
+        presupuestosCliente.add(presupuesto);
+    }
+    public cliente() {
+    }
+
     public cliente(String nombre, String apellido, int telf, boolean vip) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.telf = telf;
         this.vip = vip;
+    }
+
+    @Override
+    public String toString() {
+        return "cliente{" +
+                "nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", telf=" + telf +
+                ", vip=" + vip +
+                ", presupuestosCliente=" + presupuestosCliente +
+                '}';
     }
 }

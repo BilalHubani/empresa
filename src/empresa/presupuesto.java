@@ -47,4 +47,14 @@ public class presupuesto{
         this.ptotal = ptotal;
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return "presupuesto{" +
+                "num=" + num +
+                ", concepto='" + concepto + '\'' +
+                ", ptotal=" + ptotal +
+                ", estado='" + estado + '\'' +
+                '}';
+    }
 }
