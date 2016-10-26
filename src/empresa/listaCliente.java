@@ -32,9 +32,6 @@ public class listaCliente {
                 comprobar = false;
             }
         }
-        if (comprobar == true){
-            System.out.println("Numero ya existente, introduce otro");
-        }
         return comprobar;
     }
 }

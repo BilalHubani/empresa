@@ -11,7 +11,7 @@ public class cliente {
     private String apellido;
     private int telf;
     private boolean vip;
-    private List<presupuesto> presupuestosCliente = new ArrayList<>();
+    private listaPresupuestos listaPresupuestos;
 
     public String getNombre() {
         return nombre;
@@ -45,16 +45,16 @@ public class cliente {
         this.vip = vip;
     }
 
-    public List<presupuesto> getpresupuestosCliente() {
-        return presupuestosCliente;
+    public empresa.listaPresupuestos getListaPresupuestos() {
+        return listaPresupuestos;
     }
 
-    public void setpresupuestosCliente(List<presupuesto> presupuestosCliente) {
-        this.presupuestosCliente = presupuestosCliente;
+    public void setListaPresupuestos(empresa.listaPresupuestos listaPresupuestos) {
+        this.listaPresupuestos = listaPresupuestos;
     }
 
     public void addPresupuesto(presupuesto presupuesto){
-        presupuestosCliente.add(presupuesto);
+        listaPresupuestos.add(presupuesto);
     }
     public cliente() {
     }
@@ -64,6 +64,7 @@ public class cliente {
         this.apellido = apellido;
         this.telf = telf;
         this.vip = vip;
+        this.listaPresupuestos = new listaPresupuestos();
     }
 
     @Override
@@ -73,7 +74,7 @@ public class cliente {
                 ", apellido='" + apellido + '\'' +
                 ", telf=" + telf +
                 ", vip=" + vip +
-                ", presupuestosCliente=" + presupuestosCliente +
+                ", presupuestosCliente=" + listaPresupuestos +
                 '}';
     }
 }

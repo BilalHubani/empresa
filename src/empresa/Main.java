@@ -36,11 +36,9 @@ public class Main {
     public static int pedirTelf (String mensaje){
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int respuesta = 0;
-        int cifras;
         boolean error;
         boolean comprobar= false;
         do {
-            cifras = 0;
             try {
                 while (Integer.toString(respuesta).length() != 9) {
                     System.out.println(mensaje);
@@ -48,16 +46,71 @@ public class Main {
                 }
                 error = false;
             } catch (IOException ex) {
-                System.out.println("Error de entrada / salida");
+                System.out.println("Error de entrada /salida");
                 error = true;
             } catch (NumberFormatException ex) {
                 System.out.println("No has introducido un nº entero.");
                 error = true;
             }
             comprobar = listac.comprobarTelf(respuesta, comprobar);
-
-        } while (cifras != 9 || error || comprobar);
+            if (comprobar == true){
+                System.out.println("Numero ya existente, introduce otro");
+            }
+        } while (error || comprobar);
         return respuesta;
+    }
+    public static int pedirTelf2 (String mensaje){
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int respuesta = 0;
+        boolean error;
+        boolean comprobar= false;
+        do {
+            try {
+                while (Integer.toString(respuesta).length() != 9) {
+                    System.out.println(mensaje);
+                    respuesta = Integer.parseInt(br.readLine());
+                }
+                error = false;
+            } catch (IOException ex) {
+                System.out.println("Error de entrada/ salida");
+                error = true;
+            } catch (NumberFormatException ex) {
+                System.out.println("No has introducido un nº entero.");
+                error = true;
+            }
+            comprobar = listac.comprobarTelf(respuesta, comprobar);
+            if (comprobar == true){
+                altaCliente();
+            }
+        } while (error);
+        return respuesta;
+    }
+    public static int enteroPresupuesto(String mensaje){
+        int respuesta = 0;
+        boolean comprobar = true;
+        do {
+            comprobar=true;
+            respuesta = methods.pedirEntero(mensaje);
+            for (cliente c: listac.getLista()) {
+                for (presupuesto p: c.getListaPresupuestos().getListaPresupuestos()) {
+                    if (p.getNum() == respuesta){
+                        comprobar = false;
+                    }
+                }
+            }
+            if (!comprobar)
+                System.out.println("Numero ya existente");
+        }while (!comprobar);
+        return respuesta;
+    }
+    public static void nuevoPresupuesto(){
+        cliente cliente = null;
+        int telf, num;
+        String concepto, estado;
+        telf = pedirTelf2("Escribe el telefono del cliente del presupuesto que quieres consultar: ");
+        num = enteroPresupuesto("Escribe el numero del presupuesto: ");
+        concepto = methods.pedirCadena("Escribe el concepto: ");
+        estado =
     }
     public static void elegirOpcion(){
         int opcion = 0;
@@ -69,7 +122,7 @@ public class Main {
                     altaCliente();
                     break;
                 case 2:
-
+                    nuevoPresupuesto();
                     break;
                 case 3:
 
