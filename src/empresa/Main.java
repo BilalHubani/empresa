@@ -103,14 +103,62 @@ public class Main {
         }while (!comprobar);
         return respuesta;
     }
+    public static String pedirEstado(){
+        String respuesta;
+        do {
+            respuesta = methods.pedirCadena("Escribe el estado (aceptado, rechazado, pendiente): ");
+        }while(!respuesta.equalsIgnoreCase("aceptado") || !respuesta.equalsIgnoreCase("rechazado") || !respuesta.equalsIgnoreCase("pendiente"));
+        return respuesta;
+    }
     public static void nuevoPresupuesto(){
-        cliente cliente = null;
+        cliente cliente;
         int telf, num;
         String concepto, estado;
+        double precio;
+        presupuesto presupuesto;
         telf = pedirTelf2("Escribe el telefono del cliente del presupuesto que quieres consultar: ");
+        cliente=listac.obtenerClienteTelf(telf);
         num = enteroPresupuesto("Escribe el numero del presupuesto: ");
         concepto = methods.pedirCadena("Escribe el concepto: ");
-        estado =
+        estado = pedirEstado();
+        precio = methods.pedirDouble("Escribe el precio sin el iva y sin el descuento: ");
+        precio = precio*1.21;
+        System.out.println("El precio con el iva incluido es: "+ precio);
+        if (cliente.isVip()) {
+            precio = precio*0.95;
+            System.out.println("Como el cliente es vip, se le aplica el descuento: "+ precio);
+        }
+        presupuesto = new presupuesto(num, concepto, precio,estado);
+        cliente.getListaPresupuestos().add(presupuesto);
+        ficheroClientes.grabar(listac);
+        System.out.println("Presupuesto añadido");
+    }
+    public static void presupuestosPorEstado(String estado){
+        for (cliente cliente: listac.getLista()){
+            for (empresa.presupuesto presupuesto: cliente.getListaPresupuestos().getListaPresupuestos()){
+                if (presupuesto.getEstado().equalsIgnoreCase(estado)){
+                    System.out.println("Cliente : " + cliente.getNombre() +" "+cliente.getApellido()+ " tiene el siguiente presupuesto pendiente: "+ presupuesto);
+                }
+            }
+        }
+    }
+    public static void presupuestosCliente(){
+        int telf = pedirTelf("Escribe el telefono del cliente a consultar: ");
+        cliente cliente = listac.obtenerClienteTelf(telf);
+        for (presupuesto presupuesto : cliente.getListaPresupuestos().getListaPresupuestos()){
+            System.out.println(presupuesto);
+        }
+    }
+    public static void listadoTotal(){
+        for (cliente cliente : listac.getLista()){
+            System.out.println(cliente);
+            for (presupuesto presupuesto : cliente.getListaPresupuestos().getListaPresupuestos()){
+                System.out.println(presupuesto);
+            }
+        }
+    }
+    public static void cambiarEstado(){
+
     }
     public static void elegirOpcion(){
         int opcion = 0;
@@ -122,22 +170,23 @@ public class Main {
                     altaCliente();
                     break;
                 case 2:
+                    // se me guarda el precio total para que no se modifique la factura en caso de que un cliente pase a ser vip
                     nuevoPresupuesto();
                     break;
                 case 3:
-
+                    presupuestosPorEstado("pendiente");
                     break;
                 case 4:
-
+                    presupuestosCliente();
                     break;
                 case 5:
-
+                    presupuestosPorEstado("rechazado");
                     break;
                 case 6:
-
+                    listadoTotal();
                     break;
                 case 7:
-
+                    cambiarEstado();
                     break;
                 case 8:
                     System.out.println("Chao :)");

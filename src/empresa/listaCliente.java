@@ -25,7 +25,14 @@ public class listaCliente {
         listac.add(cliente);
     }
 
-
+    public cliente obtenerClienteTelf(int telf){
+        for (cliente cliente: listac){
+            if (cliente.getTelf() == telf){
+                return cliente;
+            }
+        }
+        return null;
+    }
     public Boolean comprobarTelf(int respuesta, boolean comprobar){
         for (cliente cliente : listac) {
             if(cliente.getTelf() == respuesta){
