@@ -158,7 +158,21 @@ public class Main {
         }
     }
     public static void cambiarEstado(){
-
+        int num = methods.pedirEntero("Escribe el numero del presupuesto: ");
+        boolean exists = false;
+        for (cliente cliente : listac.getLista()){
+            for (presupuesto presupuesto : cliente.getListaPresupuestos().getListaPresupuestos()){
+                if (presupuesto.getNum() == num){
+                    exists = true;
+                    System.out.println("El estado actual de este presupuesto es: "+ presupuesto.getEstado());
+                    presupuesto.setEstado(pedirEstado());
+                    break;
+                }
+            }
+        }
+        if (!exists){
+            System.out.println("No se ha encontrado ningun presupuesto con ese numero");
+        }
     }
     public static void elegirOpcion(){
         int opcion = 0;
