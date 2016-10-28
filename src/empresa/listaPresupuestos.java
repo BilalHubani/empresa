@@ -22,4 +22,9 @@ public class listaPresupuestos {
     public void add(presupuesto presupuesto){
         listaPresupuestos.add(presupuesto);
     }
+
+    @Override
+    public String toString() {
+        return "" + listaPresupuestos;
+    }
 }

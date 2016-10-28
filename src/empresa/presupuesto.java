@@ -48,6 +48,9 @@ public class presupuesto{
         this.estado = estado;
     }
 
+    public presupuesto() {
+    }
+
     @Override
     public String toString() {
         return "presupuesto{" +

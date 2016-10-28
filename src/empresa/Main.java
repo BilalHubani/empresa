@@ -33,6 +33,19 @@ public class Main {
         listac.addCliente(cliente);
         ficheroClientes.grabar(listac);
     }
+    public static void altaCliente(int telf){
+        String nombre;
+        String apellido;
+        boolean vip;
+        cliente cliente;
+
+        nombre=methods.pedirCadena("Escribe el nombre: ");
+        apellido=methods.pedirCadena("Escribe el apellido: ");
+        vip=methods.pedirBoolean("Es un cliente vip? (si/no): ");
+        cliente = new cliente(nombre,apellido,telf,vip);
+        listac.addCliente(cliente);
+        ficheroClientes.grabar(listac);
+    }
     public static int pedirTelf (String mensaje){
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int respuesta = 0;
@@ -107,7 +120,7 @@ public class Main {
         String respuesta;
         do {
             respuesta = methods.pedirCadena("Escribe el estado (aceptado, rechazado, pendiente): ");
-        }while(!respuesta.equalsIgnoreCase("aceptado") || !respuesta.equalsIgnoreCase("rechazado") || !respuesta.equalsIgnoreCase("pendiente"));
+        }while(!respuesta.equalsIgnoreCase("aceptado") && !respuesta.equalsIgnoreCase("rechazado") && !respuesta.equalsIgnoreCase("pendiente"));
         return respuesta;
     }
     public static void nuevoPresupuesto(){
@@ -118,6 +131,10 @@ public class Main {
         presupuesto presupuesto;
         telf = pedirTelf2("Escribe el telefono del cliente del presupuesto que quieres consultar: ");
         cliente=listac.obtenerClienteTelf(telf);
+        if (cliente==null){
+            altaCliente(telf);
+            cliente=listac.obtenerClienteTelf(telf);
+        }
         num = enteroPresupuesto("Escribe el numero del presupuesto: ");
         concepto = methods.pedirCadena("Escribe el concepto: ");
         estado = pedirEstado();
@@ -145,16 +162,17 @@ public class Main {
     public static void presupuestosCliente(){
         int telf = pedirTelf("Escribe el telefono del cliente a consultar: ");
         cliente cliente = listac.obtenerClienteTelf(telf);
-        for (presupuesto presupuesto : cliente.getListaPresupuestos().getListaPresupuestos()){
-            System.out.println(presupuesto);
+        if (cliente != null) {
+            for (presupuesto presupuesto : cliente.getListaPresupuestos().getListaPresupuestos()) {
+                System.out.println(presupuesto);
+            }
+        }else {
+            System.out.println("No hay ningun cliente con este numero");
         }
     }
     public static void listadoTotal(){
         for (cliente cliente : listac.getLista()){
             System.out.println(cliente);
-            for (presupuesto presupuesto : cliente.getListaPresupuestos().getListaPresupuestos()){
-                System.out.println(presupuesto);
-            }
         }
     }
     public static void cambiarEstado(){
@@ -166,6 +184,7 @@ public class Main {
                     exists = true;
                     System.out.println("El estado actual de este presupuesto es: "+ presupuesto.getEstado());
                     presupuesto.setEstado(pedirEstado());
+                    ficheroClientes.grabar(listac);
                     break;
                 }
             }
